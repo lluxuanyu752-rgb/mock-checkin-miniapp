@@ -1,5 +1,9 @@
 # 打卡签到漏洞靶场 · 微信小程序版（本地）
 
+[![CI](https://github.com/lluxuanyu752-rgb/mock-checkin-miniapp/actions/workflows/ci.yml/badge.svg)](https://github.com/lluxuanyu752-rgb/mock-checkin-miniapp/actions/workflows/ci.yml)
+
+> 配套本地沙箱服务：[**mock-checkin-lab**](https://github.com/lluxuanyu752-rgb/mock-checkin-lab)（`server.py` + `static/app.html`，本工程所有请求都发往它）
+
 这是一个**只连本机沙箱**的微信小程序工程，用来在「微信开发者工具 / 真机」里演示同一个签到流程的两种实现：
 
 - **漏洞版**（服务端明文信任客户端）：改个坐标、换张旧图、替别人点一下，全都能签成功；
