@@ -1,0 +1,17 @@
+# 开发者工具生成的依赖/类型目录
+node_modules/
+miniprogram_npm/
+typings/
+
+# 本地个人配置：随机器不同而变，开发者工具会重新生成；
+# urlCheck 等关键设置已经写在 project.config.json 里，不依赖这个文件。
+project.private.config.json
+
+# 日志 / 临时
+*.log
+_tmp/
+
+# 系统文件
+.DS_Store
+Thumbs.db
+desktop.ini

@@ -1,0 +1,54 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/teacher/teacher",
+    "pages/attack/attack"
+  ],
+  "entryPagePath": "pages/index/index",
+  "window": {
+    "navigationBarTitleText": "打卡安全演示靶场",
+    "navigationBarBackgroundColor": "#07c160",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#f2f3f5",
+    "backgroundTextStyle": "light",
+    "enablePullDownRefresh": false
+  },
+  "tabBar": {
+    "color": "#8a8f99",
+    "selectedColor": "#07c160",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "学生端"
+      },
+      {
+        "pagePath": "pages/teacher/teacher",
+        "text": "教师端"
+      },
+      {
+        "pagePath": "pages/attack/attack",
+        "text": "攻击演示"
+      }
+    ]
+  },
+  "networkTimeout": {
+    "request": 8000,
+    "connectSocket": 8000,
+    "uploadFile": 15000,
+    "downloadFile": 15000
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "用于本地靶场演示的定位功能"
+    }
+  },
+  "requiredPrivateInfos": [
+    "getLocation"
+  ],
+  "lazyCodeLoading": "requiredComponents",
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "debug": false
+}

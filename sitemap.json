@@ -1,0 +1,4 @@
+{
+  "desc": "本地沙箱演示项目，不发布",
+  "rules": [{ "action": "disallow", "page": "*" }]
+}

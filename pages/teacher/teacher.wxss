@@ -1,0 +1,14 @@
+.sub-row {
+  padding: 16rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.sub-row:last-child {
+  border-bottom: none;
+}
+
+.sub-head {
+  display: flex;
+  justify-content: space-between;
+  font-size: 26rpx;
+}

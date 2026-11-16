@@ -1,0 +1,34 @@
+<view class="wrap">
+  <view class="card">
+    <view class="card-title">攻击演示（只打本机沙箱）</view>
+    <view class="hint">8 个用例：①②③ 对比围栏、④⑤ 对比替签、⑥⑦⑧ 对比照片去重/来源/nonce。演示图是程序合成的色块图，不含任何真实照片。</view>
+    <view class="field">
+      <text class="field-label">教师端密钥</text>
+      <input class="input mono" value="{{secret}}" bindinput="onSecretInput" placeholder="如 TESTSEC1" />
+    </view>
+    <button class="btn btn-ghost" bindtap="loadCode">获取当前动态码</button>
+    <view class="hint">动态码：{{code || '（未获取）'}} {{codeErr}}</view>
+    <image wx:if="{{photoPath}}" src="{{photoPath}}" mode="widthFix" style="width:100%;border-radius:12rpx;margin-top:16rpx;"></image>
+    <canvas type="2d" id="atkCanvas" style="width:600rpx;height:800rpx;position:fixed;left:-2000rpx;top:0;"></canvas>
+    <canvas type="2d" id="thumb" style="width:4px;height:4px;position:fixed;left:-2000rpx;top:0;"></canvas>
+  </view>
+
+  <view class="card">
+    <view class="card-title">8 个用例</view>
+    <view class="case" wx:for="{{cases}}" wx:key="key">
+      <view class="case-name">
+        <view>{{item.name}}</view>
+        <view class="hint">{{item.desc}}</view>
+        <view class="case-result">{{item.text}}</view>
+      </view>
+      <button class="btn case-btn" data-key="{{item.key}}" bindtap="runCase" disabled="{{running !== ''}}">{{running === item.key ? '运行中' : '运行'}}</button>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="card-title">看什么</view>
+    <view class="hint">· 围栏（坐标）只能骗客户端，骗不过服务端算距离；<text class="mono">/</text> 但坐标对、动态码错时加固模式仍然拦住——真正证明「人在现场」的是动态码。</view>
+    <view class="hint">· 替签必须靠「会话身份 ↔ 提交身份」绑定；照片复用靠服务端感知哈希去重；相册旧图靠拍摄来源校验；重放靠一次性 nonce。</view>
+    <view class="hint">· 结论按顺序就是修复清单：服务端重算距离、身份绑定、动态码/签名、强制相机、水印时效、特征去重、nonce。</view>
+  </view>
+</view>

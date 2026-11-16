@@ -1,0 +1,73 @@
+<view class="wrap">
+  <view wx:if="{{error}}" class="card">
+    <view class="fail">{{error}}</view>
+    <view class="hint">先双击 D:\dsh-output\mock-checkin\run.bat 启动沙箱；开发者工具「详情 → 本地设置」勾选「不校验合法域名」。</view>
+  </view>
+
+  <block wx:if="{{ready}}">
+    <view class="card">
+      <view class="card-title">查寝 / 上课签到（仿群报数）</view>
+      <view class="field">
+        <text class="field-label"><text class="required">*</text>学生姓名（不公开）</text>
+        <picker mode="selector" range="{{names}}" value="{{nameIdx}}" bindchange="onNameChange">
+          <view class="field-value">{{names[nameIdx]}}</view>
+        </picker>
+      </view>
+      <view class="field">
+        <text class="field-label"><text class="required">*</text>学号（不公开）</text>
+        <text class="field-value mono">{{studentId}}</text>
+      </view>
+      <view class="field">
+        <text class="field-label"><text class="required">*</text>场景</text>
+        <picker mode="selector" range="{{sceneLabels}}" value="{{sceneIdx}}" bindchange="onSceneChange">
+          <view class="field-value">{{sceneLabels[sceneIdx]}}</view>
+        </picker>
+      </view>
+      <view class="hint">服务端当前模式：{{mode === 'hardened' ? '加固（服务端逐项校验）' : '漏洞（明信客户端上报）'}}，可在「教师端」切换。</view>
+    </view>
+
+    <view class="card">
+      <view class="card-title"><text class="required">*</text>定位（不公开）</view>
+      <view class="field">
+        <text class="field-label">经纬度</text>
+        <text class="field-value mono">{{lat}}, {{lng}}</text>
+      </view>
+      <view class="field">
+        <text class="field-label">来源</text>
+        <text class="field-value">{{locText}}</text>
+      </view>
+      <view class="row">
+        <button class="btn btn-ghost" bindtap="useSandboxLocation">靶场坐标</button>
+        <button class="btn btn-ghost" bindtap="getRealLocation">真实定位</button>
+      </view>
+      <view class="hint">「靶场坐标」是把目标坐标直接填进提交请求，用来演示服务端只信客户端会怎样；「真实定位」走 wx.getLocation，需要授权。</view>
+    </view>
+
+    <view class="card">
+      <view class="card-title"><text class="required">*</text>水印拍照打卡（不公开）</view>
+      <camera wx:if="{{cameraOn}}" device-position="back" flash="off" style="width:100%;height:420rpx;border-radius:14rpx;overflow:hidden;"></camera>
+      <view class="row" wx:if="{{cameraOn}}">
+        <button class="btn" bindtap="takePhoto">拍照并生成水印</button>
+        <button class="btn btn-ghost" bindtap="cancelCamera">取消</button>
+      </view>
+      <block wx:if="{{!cameraOn}}">
+        <image wx:if="{{photoPath}}" src="{{photoPath}}" mode="widthFix" style="width:100%;border-radius:14rpx;"></image>
+        <button class="btn" bindtap="openCamera">{{photoPath ? '重新拍照' : '打开相机拍照'}}</button>
+        <button class="btn btn-ghost" bindtap="mockPhoto">模拟拍照（开发者工具无摄像头时用）</button>
+      </block>
+      <view class="hint">水印：{{wmText || '（拍照后生成 时间/地点/姓名/坐标）'}}</view>
+      <canvas type="2d" id="photoCanvas" style="width:600rpx;height:800rpx;position:fixed;left:-2000rpx;top:0;"></canvas>
+      <canvas type="2d" id="thumb" style="width:4px;height:4px;position:fixed;left:-2000rpx;top:0;"></canvas>
+    </view>
+
+    <view class="card">
+      <view class="card-title"><text class="required">*</text>现场动态码（加固模式必填）</view>
+      <input class="input mono" placeholder="教师端显示的 6 位数字/字母" value="{{classCode}}" bindinput="onCodeInput" />
+      <view class="hint">去「教师端」填密钥连接一次，就能看到会轮换的动态码。加固模式靠它证明「人真的在教室/寝室」。</view>
+    </view>
+
+    <button class="btn {{busy ? 'btn-disabled' : ''}}" bindtap="submit" disabled="{{busy}}">{{busy ? '提交中…' : '提交'}}</button>
+    <view wx:if="{{result}}" class="result-box {{result.ok ? 'ok' : 'fail'}}">{{result.text}}</view>
+    <view class="hint" style="text-align:center;margin-top:24rpx;">本页只把请求发往 127.0.0.1 本机沙箱，不连接真实打卡系统。</view>
+  </block>
+</view>

@@ -1,0 +1,19 @@
+{
+  "description": "群报数式打卡 · 本地攻防沙箱演示（只连接 127.0.0.1 的本机 mock 服务）",
+  "compileType": "miniprogram",
+  "libVersion": "3.5.6",
+  "appid": "wx0adffe015a446183",
+  "projectname": "mock-checkin-lab",
+  "setting": {
+    "urlCheck": false,
+    "es6": true,
+    "enhance": true,
+    "postcss": true,
+    "minified": true,
+    "coverView": true,
+    "ignoreDevUnusedFiles": false,
+    "compileHotReLoad": true,
+    "useIsolateContext": true
+  },
+  "condition": {}
+}

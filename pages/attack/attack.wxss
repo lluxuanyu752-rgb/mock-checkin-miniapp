@@ -1,0 +1,9 @@
+.case {
+  display: flex;
+  align-items: center;
+}
+
+.case-name {
+  flex: 1;
+  padding-right: 16rpx;
+}
